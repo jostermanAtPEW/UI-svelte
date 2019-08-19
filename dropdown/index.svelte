@@ -114,9 +114,9 @@
         padding: 12px;
         font-size: 12px;
         font-weight: 700;
-        text-transform: uppercase;
         background-color: rgba(255,255,255,0);
         & > div {
+            text-transform: uppercase;
             position: relative;
             background-color: rgba(255,255,255,0);
         }
@@ -135,6 +135,7 @@
                 list-style-type: none;
                 margin: 0;
                 padding: 12px;
+                font-size: 13px;
                 &:hover, &.hover {
                     background-color: #eef6ff;
                     text-decoration: underline;
