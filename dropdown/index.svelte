@@ -40,6 +40,9 @@
   }
 
   function keyHandler(e){
+    if ( e.keyCode !== 9 ){ // tab key. retain default for moving focus
+        e.preventDefault();
+    }
     console.log(e.keyCode);
     function dispatchClick(){
         toBeSelected.dispatchEvent(new MouseEvent('click'), {
@@ -162,7 +165,7 @@
 <div class="dropdown-outer">
     <label>{label}</label>
     <div class="dropdown-inner">
-        <div on:keydown|preventDefault="{keyHandler}" on:click|stopPropagation="{clickHandler}" class:is-open="{isOpen}" class="dropdown" aria-haspopup="listbox" aria-expanded={isOpen} role="button" tabindex="0">
+        <div on:keydown="{keyHandler}" on:click|stopPropagation="{clickHandler}" class:is-open="{isOpen}" class="dropdown" aria-haspopup="listbox" aria-expanded={isOpen} role="button" tabindex="0">
             <div>{currentDisplay}</div>
             <ul aria-role="listbox" aria-activedescendant="{activeDescendantID}">
             {#each options as option}
