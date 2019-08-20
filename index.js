@@ -1,3 +1,4 @@
 import dropdown from './dropdown/';
+import xOut from './x-out/';
 
-export default { dropdown };
+export default { dropdown, xOut };
