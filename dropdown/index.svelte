@@ -109,7 +109,7 @@
         background-color: rgba(255,255,255,0);
         cursor: pointer;
         border-bottom: 4px solid #296ec3;
-        background: url("data:image/svg+xml;charset=utf-8,%3Csvg class='local-navigation__link-chevron' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23296ec3' d='M7.406 7.828L12 12.422l4.594-4.594L18 9.234l-6 6-6-6z'/%3E%3C/svg%3E") 100%/22px no-repeat;
+        background: url("data:image/svg+xml;charset=utf-8,%3Csvg class='local-navigation__link-chevron' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23296ec3' d='M7.406 7.828L12 12.422l4.594-4.594L18 9.234l-6 6-6-6z'/%3E%3C/svg%3E") 100%/22px 22px no-repeat;
         height: 40px;
         color: #296ec3;
     }
