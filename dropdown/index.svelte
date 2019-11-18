@@ -167,9 +167,9 @@
     <div class="dropdown-inner">
         <div on:keydown="{keyHandler}" on:click|stopPropagation="{clickHandler}" class:is-open="{isOpen}" class="dropdown" aria-haspopup="listbox" aria-expanded={isOpen} role="button" tabindex="0">
             <div>{currentDisplay}</div>
-            <ul aria-role="listbox" aria-activedescendant="{activeDescendantID}">
+            <ul role="listbox" aria-activedescendant="{activeDescendantID}">
             {#each options as option}
-                <li class:hover="{toBeSelected ? option.value === toBeSelected.dataset.value : false}" on:click|stopPropagation="{itemClickHandler}" data-value="{option.value}" aria-selected="{currentValue === option.value}" aria-role="option" id="dropdown-item-{option.value}">{option.display}</li>
+                <li class:hover="{toBeSelected ? option.value === toBeSelected.dataset.value : false}" on:click|stopPropagation="{itemClickHandler}" data-value="{option.value}" aria-selected="{currentValue === option.value}" role="option" id="dropdown-item-{option.value}">{option.display}</li>
             {/each}
             </ul>
         </div>
