@@ -1,5 +1,6 @@
 <script>
   import { onMount, beforeUpdate } from 'svelte';
+  import slugger from 'slugger';
   export let label;
   export let options;
   export let currentValue; // can be passed in as a prop or not. if not, the value will be undefined and markup below will use first option instead
@@ -9,7 +10,7 @@
   //to do: pass in an onsubscribe 
 
   $: currentValue = currentValue || options[0].value;
-  $: activeDescendantID = 'dropdown-item-' + currentValue;
+  $: activeDescendantID = 'dropdown-item-' + slugger(currentValue);
   $: activeDescendant = document.querySelector('#' + activeDescendantID);
   $: currentDisplay = options.find(d => d.value === currentValue) ? options.find(d => d.value === currentValue).display : options[0].display;
   itemOnClick = itemOnClick || function(){
@@ -169,7 +170,7 @@
             <div>{currentDisplay}</div>
             <ul role="listbox" aria-activedescendant="{activeDescendantID}">
             {#each options as option}
-                <li class:hover="{toBeSelected ? option.value === toBeSelected.dataset.value : false}" on:click|stopPropagation="{itemClickHandler}" data-value="{option.value}" aria-selected="{currentValue === option.value}" role="option" id="dropdown-item-{option.value}">{option.display}</li>
+                <li class:hover="{toBeSelected ? option.value === toBeSelected.dataset.value : false}" on:click|stopPropagation="{itemClickHandler}" data-value="{option.value}" aria-selected="{currentValue === option.value}" role="option" id="dropdown-item-{slugger(option.value)}">{option.display}</li>
             {/each}
             </ul>
         </div>
