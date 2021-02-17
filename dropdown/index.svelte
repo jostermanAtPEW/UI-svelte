@@ -83,6 +83,12 @@
     itemOnClick.call(this, e);
     isOpen = false;
   }
+  function setDataAttributes(node, options){
+      console.log(options);
+      Object.keys(options).forEach(key => {
+        node.dataset[key] = options[key];
+      });
+  }
   onMount(() => {
     activeDescendant = document.querySelector('#' + activeDescendantID);
     toBeSelected = activeDescendant;
@@ -170,7 +176,7 @@
             <div>{currentDisplay}</div>
             <ul role="listbox" aria-activedescendant="{activeDescendantID}">
             {#each options as option}
-                <li class:hover="{toBeSelected ? option.value === toBeSelected.dataset.value : false}" on:click|stopPropagation="{itemClickHandler}" data-value="{option.value}" aria-selected="{currentValue === option.value}" role="option" id="dropdown-item-{slugger(option.value)}">{option.display}</li>
+                <li use:setDataAttributes="{option}" class:hover="{toBeSelected ? option.value === toBeSelected.dataset.value : false}" on:click|stopPropagation="{itemClickHandler}" data-value="{option.value}" aria-selected="{currentValue === option.value}" role="option" id="dropdown-item-{slugger(option.value)}">{option.display}</li>
             {/each}
             </ul>
         </div>
