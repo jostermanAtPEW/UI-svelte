@@ -4,7 +4,16 @@
     export let name;
     export let onchange;
     export let options;
-    function setAttributes(node, option){
+    export let disallowAllUnchecked = false;
+    let checked = new Set();
+    window.checked = checked;
+    let disabled = [];
+    function setAttributes(node, {option, i}){
+        node.optionIndex = i;
+        if (option.isChecked){
+            checked.add(node);
+        }
+        disabled[i] = false;
         if (aria){
             Object.keys(aria).forEach(key => {
                 if ( key !== 'label'){
@@ -15,6 +24,25 @@
         Object.keys(option).forEach(key => {
             node.dataset[key] = option[key];
         });
+    }
+    function checkDisable(){
+        if (checked.size == 1){
+            disabled[[...checked][0].optionIndex] = true;
+            disabled = disabled;
+        } else {
+            disabled = disabled.map(() => false);
+        }
+    }
+    function _onchange(e){
+        onchange.call(this,e);
+        if ( this.checked ){
+            checked.add(this);
+        } else {
+            checked.delete(this);
+        }
+        if (disallowAllUnchecked) {
+            checkDisable();
+        }
     }
 </script>
 <style>
@@ -35,6 +63,12 @@
         border: 1px solid #296ec3;
         border-radius: 2px;
         margin-right: 0.5em;
+    }
+    input[disabled] {
+        cursor: not-allowed;
+    }
+    input[disabled]:checked {
+        background-color: gray;
     }
     input:focus {
         outline: 1px dotted gray;
@@ -69,7 +103,7 @@
     {#if aria.label}
     <p class="visually-hidden">{aria.label}</p>
     {/if}
-    {#each options as option}
-        <label><input on:change="{onchange}" {name} use:setAttributes="{option}" type="checkbox" value={option.value}> { option.display}</label>
+    {#each options as option, i}
+        <label><input disabled="{disabled[i]}" checked="{option.isChecked}" on:change="{_onchange}" {name} use:setAttributes="{{option, i}}" type="checkbox" value={option.value}> { option.display}</label>
     {/each}
 </div>
