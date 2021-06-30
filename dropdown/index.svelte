@@ -6,6 +6,7 @@
   export let currentValue; // can be passed in as a prop or not. if not, the value will be undefined and markup below will use first option instead
   export let itemOnClick;
   export let subscribeTo;
+  export let showLabel = true;
 
   //to do: pass in an onsubscribe 
 
@@ -129,6 +130,10 @@
             text-transform: uppercase;
             position: relative;
             background-color: rgba(255,255,255,0);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding-right: 1em;
         }
         & > ul {
             position: absolute;
@@ -170,7 +175,7 @@
 </style>
 
 <div class="dropdown-outer">
-    <label>{label}</label>
+    <label class:visually-hidden="{!showLabel}">{label}</label>
     <div class="dropdown-inner">
         <div on:keydown="{keyHandler}" on:click|stopPropagation="{clickHandler}" class:is-open="{isOpen}" class="dropdown" aria-haspopup="listbox" aria-expanded={isOpen} role="button" tabindex="0">
             <div>{currentDisplay}</div>
