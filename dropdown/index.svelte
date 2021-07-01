@@ -13,7 +13,7 @@
   $: currentValue = currentValue || options[0].value;
   $: activeDescendantID = 'dropdown-item-' + slugger(currentValue);
   $: activeDescendant = document.querySelector('#' + activeDescendantID);
-  $: currentDisplay = options.find(d => d.value === currentValue) ? options.find(d => d.value === currentValue).display : options[0].display;
+  $: currentDisplay = options.find(d => d.value == currentValue) ? options.find(d => d.value == currentValue).display : options[0].display;
   itemOnClick = itemOnClick || function(){
     console.log('no itemOnClick prop');
     return;
