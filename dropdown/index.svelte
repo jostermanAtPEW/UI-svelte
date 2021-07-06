@@ -99,8 +99,7 @@
 <style lang="scss">
     @import './../variables.scss';
     .dropdown-outer {
-        max-width: 300px;
-        min-width: 300px;
+        width: 100%;
         font-size: 16px;
         font-weight: 700;
         color: $dark_blue;
