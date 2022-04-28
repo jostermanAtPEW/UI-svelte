@@ -7,6 +7,8 @@
   export let itemOnClick;
   export let subscribeTo;
   export let showLabel = true;
+  export let isInline;
+  export let isOrange;
 
   //to do: pass in an onsubscribe 
 
@@ -110,6 +112,10 @@
             margin: 0;
             display: block;
         }
+        &.isInline {
+            width: auto;
+            margin-right: 0;
+        }
     }
     .dropdown-inner {
         position: relative;
@@ -119,6 +125,12 @@
         background: url("data:image/svg+xml;charset=utf-8,%3Csvg class='local-navigation__link-chevron' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23296ec3' d='M7.406 7.828L12 12.422l4.594-4.594L18 9.234l-6 6-6-6z'/%3E%3C/svg%3E") 100%/22px 22px no-repeat;
         height: 40px;
         color: #296ec3;
+        .isOrange & {
+            border-bottom: 4px solid #f47d4b;
+            background: url("data:image/svg+xml;charset=utf-8,%3Csvg class='local-navigation__link-chevron' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23f47d4b' d='M7.406 7.828L12 12.422l4.594-4.594L18 9.234l-6 6-6-6z'/%3E%3C/svg%3E") 100%/22px 22px no-repeat;
+            color: #f47d4b;
+
+        }
     }
     .dropdown {
         padding: 12px;
@@ -133,13 +145,16 @@
             overflow: hidden;
             text-overflow: ellipsis;
             padding-right: 1em;
+            .isInline & {
+                text-overflow: initial;
+            }
         }
         & > ul {
             position: absolute;
             display:none;
             top: 0;
             left: 0;
-            width: 100%;
+            min-width: 100%;
             background-color: #fff;
             z-index: 1;
             padding: 0;
@@ -172,8 +187,8 @@
         }
     }
 </style>
-
-<div class="dropdown-outer">
+<svelte:options accessors={true}/>
+<div class:isOrange class:isInline class="dropdown-outer">
     <label class:visually-hidden="{!showLabel}">{label}</label>
     <div class="dropdown-inner">
         <div on:keydown="{keyHandler}" on:click|stopPropagation="{clickHandler}" class:is-open="{isOpen}" class="dropdown" aria-haspopup="listbox" aria-expanded={isOpen} role="button" tabindex="0">
