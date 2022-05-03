@@ -160,6 +160,9 @@
             padding: 0;
             margin-left: 0;
             border: 1px solid #aeadad;
+            height: 442px;
+            max-height: calc(100vh - 100px);
+            overflow-y: scroll;
             li {
                 list-style-type: none;
                 margin: 0;
