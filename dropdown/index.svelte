@@ -42,7 +42,23 @@
         document.body.removeEventListener('click', closeDropdown);
     }
   }
+  function hash(str) {
+    // HT: https://github.com/darkskyapp/string-hash/blob/master/index.js
+    if (typeof str == 'undefined') {
+        console.error('label is a required field');
+        str = Math.random().toFixed(5)
+    }
+    var hash = 5381,
+        i = str.length;
 
+    while (i) {
+        hash = (hash * 33) ^ str.charCodeAt(--i);
+    }
+    /* JavaScript does bitwise operations (like XOR, above) on 32-bit signed
+     * integers. Since we want the results to be always positive, convert the
+     * signed int to an unsigned by doing an unsigned bitshift. */
+    return hash >>> 0;
+}
   function keyHandler(e){
     if ( e.keyCode !== 9 ){ // tab key. retain default for moving focus
         e.preventDefault();
@@ -87,7 +103,6 @@
     isOpen = false;
   }
   function setDataAttributes(node, options){
-      console.log(options);
       Object.keys(options).forEach(key => {
         node.dataset[key] = options[key];
       });
@@ -160,7 +175,7 @@
             padding: 0;
             margin-left: 0;
             border: 1px solid #aeadad;
-            height: 442px;
+            // height: 442px;
             max-height: calc(100vh - 100px);
             overflow-y: scroll;
             li {
@@ -192,11 +207,11 @@
 </style>
 <svelte:options accessors={true}/>
 <div class:isOrange class:isInline class="dropdown-outer">
-    <label class:visually-hidden="{!showLabel}">{label}</label>
+    <label for={"dropdown-"+hash(label)} class:visually-hidden="{!showLabel}">{label}</label>
     <div class="dropdown-inner">
         <div on:keydown="{keyHandler}" on:click|stopPropagation="{clickHandler}" class:is-open="{isOpen}" class="dropdown" aria-haspopup="listbox" aria-expanded={isOpen} role="button" tabindex="0">
             <div>{currentDisplay}</div>
-            <ul role="listbox" aria-activedescendant="{activeDescendantID}">
+            <ul id={"dropdown-"+hash(label)} role="listbox" aria-activedescendant="{activeDescendantID}">
             {#each options as option}
                 <li use:setDataAttributes="{option}" class:hover="{toBeSelected ? option.value === toBeSelected.dataset.value : false}" on:click|stopPropagation="{itemClickHandler}" data-value="{option.value}" aria-selected="{currentValue === option.value}" role="option" id="dropdown-item-{slugger(option.value)}">{option.display}</li>
             {/each}
